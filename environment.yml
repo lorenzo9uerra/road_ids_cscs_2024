@@ -1,4 +1,4 @@
-name: lstm-can
+name: road_ids_cscs_2024
 channels:
   - conda-forge
 dependencies:
@@ -129,5 +129,3 @@ dependencies:
   - yaml=0.2.5=h7f98852_2
   - zstandard=0.23.0=py313h80202fe_1
   - zstd=1.5.6=ha6fb4c9_0
-  - pip:
-      - imblearn==0.0
