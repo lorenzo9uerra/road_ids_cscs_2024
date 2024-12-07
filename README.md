@@ -2,7 +2,24 @@
 
 [[dl.acm.org]](https://dl.acm.org/doi/10.1145/3689936.3694696)[[arxiv]](https://arxiv.org/abs/2408.17235)
 
-This is a refactored version of the code used to produce part of the results of the paper on IDS for CAN.
+This is a refactored version of the code used to produce part of the results of the paper on IDS for CAN, namely the results of the LSTM and DCNN models.
+
+## Reproduce the results
+
+1. Download and preprocess the datasets:
+   - ROAD dataset: download it [here](https://roaddataset.nyc3.digitaloceanspaces.com/road.zip). We used the raw CAN data, so go in the `attack/` folder and use the script you can find in `scripts/label_road.py` to parse and label the candump logs and create the csv files. The code expects to find them in the `data/road/` folder.
+   - CAN dataset: download it [here](https://www.dropbox.com/scl/fo/9rwsf9pclhvv9xxloojom/AF7JeRW893grZkigkulkAHk?rlkey=gglzjap922q57acw8vfp2almh&e=1&st=b7r7855u&dl=0). Use the script `scripts/label_car-hacking.py` to create the merged and preprocessed dataset for multiclass classification. Then move every file to the folder `data/car-hacking-dataset`.
+   - IVN dataset: download it [here](https://www.dropbox.com/scl/fo/7d7zkq4h2xm9oti5u6soe/AFl055lkmYfWJQF-WhdPsgM?rlkey=k94w2yrngj6tsnj65v3krpqaa&e=1&st=9qkym9h6&dl=0). Use the script `scripts/label_in-vehicle.py` to label and merge the data in a different csv file for each vehicle. Then move the files to the `data/in-vehicle_dataset` folder.
+2. Create the conda environment and activate it with the following commands:
+   ```
+   conda env create -f environment.yml
+   conda activate road_ids_cscs_2024
+   ```
+3. Run main.py with the needed arguments to train and test the models on the datasets, for example:
+   ```
+   python3 main.py --dataset road -ct binary --model DCNN --label 1
+   ```
+   You can find an example of bash script to run a batch of experiments in `scripts/batch_run.sh` 
 
 ## Citation
 
