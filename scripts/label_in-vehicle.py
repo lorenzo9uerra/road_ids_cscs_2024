@@ -27,6 +27,6 @@ for vehicle in ["CHEVROLET_Spark", "HYUNDAI_Sonata", "KIA_Soul"]:
     df = pd.concat([attack_free, flooding, fuzzy, malfunction])
     print("Saving", vehicle)
     df.to_csv(
-        f"car_track_preliminary_train/in-vehicle_{vehicle.split('_')[0].lower()}.csv",
+        f"in-vehicle_{vehicle.split('_')[0].lower()}.csv",
         index=False,
     )
