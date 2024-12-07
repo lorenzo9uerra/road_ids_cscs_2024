@@ -123,7 +123,7 @@ def load_binary_in_vehicle(vehicle, test_percent):
     # this performs binary classification over the entire vehicle dataset, without distinguishing between the different types of attacks
     df = pd.read_csv(
         "data/in-vehicle_dataset/in-vehicle_" + vehicle + ".csv",
-        dtype={"Time": float, "ID": str, "Length": int, "Label": float, "Type": str},
+        dtype={"Time": float, "ID": str, "Length": int, "Data":str, "Label": float},
     )
     df.drop(["Time", "Type"], axis=1, inplace=True)
     df["Data"] = df["Data"].str.split(" ")
@@ -136,7 +136,7 @@ def load_binary_in_vehicle(vehicle, test_percent):
     df.drop(["Data"], axis=1, inplace=True)
     df.fillna(0.0, inplace=True)
 
-    train_df, test_df = train_test_split(df, test_size=test_percent)
+    train_df, test_df = train_test_split(df, test_size=test_percent, shuffle=True, random_state=42)
     smote = SMOTE(sampling_strategy={x: 100000 for x in range(1, 4)}, random_state=42)
     X, y = smote.fit_resample(train_df.drop(["Label"], axis=1), train_df["Label"])
     train_df = pd.concat([X, y], axis=1)
@@ -200,7 +200,7 @@ def load_binary_car_hacking(label, labels_dict, test_percent):
             index=False,
         )
 
-    train_df, test_df = train_test_split(df, test_size=test_percent, random_state=42)
+    train_df, test_df = train_test_split(df, test_size=test_percent, shuffle=True, random_state=42)
     # prepare for binary classification
     train_df = train_df.astype(np.float32)
     test_df = test_df.astype(np.float32)
@@ -216,7 +216,7 @@ def load_binary_car_hacking(label, labels_dict, test_percent):
 def load_multiclass_road(test_percent):
     df = pd.read_csv("data/road/road_1.csv.gz")
     df.drop(["timestamp"], axis=1, inplace=True)
-    train_df, test_df = train_test_split(df, test_size=test_percent)
+    train_df, test_df = train_test_split(df, test_size=test_percent, random_state=42)
     smote = SMOTE(sampling_strategy={x: 100000 for x in range(1, 12)}, random_state=42)
     X, y = smote.fit_resample(train_df.drop(["label"], axis=1), train_df["label"])
     train_df = pd.concat([X, y], axis=1)
@@ -233,7 +233,7 @@ def load_multiclass_road(test_percent):
 def load_multiclass_in_vehicle(vehicle, test_percent):
     df = pd.read_csv(
         "data/in-vehicle_dataset/in-vehicle_" + vehicle + ".csv",
-        dtype={"Time": float, "ID": str, "Length": int, "Label": float, "Type": str},
+        dtype={"Time": float, "ID": str, "Length": int, "Data":str, "Label": float},
     )
     df.drop(["Time", "Type"], axis=1, inplace=True)
     df["Data"] = df["Data"].str.split(" ")
@@ -245,7 +245,7 @@ def load_multiclass_in_vehicle(vehicle, test_percent):
     )
     df.drop(["Data"], axis=1, inplace=True)
     df.fillna(0.0, inplace=True)
-    train_df, test_df = train_test_split(df, test_size=test_percent)
+    train_df, test_df = train_test_split(df, test_size=test_percent, random_state=42)
     smote = SMOTE(sampling_strategy={x: 100000 for x in range(1, 4)}, random_state=42)
     X, y = smote.fit_resample(train_df.drop(["Label"], axis=1), train_df["Label"])
     train_df = pd.concat([X, y], axis=1)
@@ -264,11 +264,10 @@ def load_multiclass_in_vehicle(vehicle, test_percent):
 
 
 def load_multiclass_car_hacking(test_percent):
-    df = pd.read_csv("data/car-hacking-dataset.csv")
+    df = pd.read_csv("data/car-hacking-dataset/car-hacking-dataset.csv")
     df.drop(["timestamp"], axis=1, inplace=True)
     df.fillna(0.0, inplace=True)
-    print(df["label"].value_counts())
-    train_df, test_df = train_test_split(df, test_size=test_percent)
+    train_df, test_df = train_test_split(df, test_size=test_percent, shuffle=True, random_state=42)
     # Unnecessary
     # smote = SMOTE(sampling_strategy={x: 100000 for x in range(1, 5)}, random_state=42)
     # X, y = smote.fit_resample(train_df.drop(["label"], axis=1), train_df["label"])
@@ -340,7 +339,7 @@ def load_frames_road(label, labels_dict, test_percent):
         X, y = build_frames(X, y)
 
         X_train, X_test, y_train, y_test = train_test_split(
-            X, y, test_size=test_percent, random_state=42
+            X, y, test_size=test_percent, shuffle=True, random_state=42
         )
 
         # X_train has shape == [n_samples, 29, 29] but we need to reshape it to [n_samples, 29*29] for SMOTE
@@ -391,7 +390,6 @@ def load_frames_in_vehicle(label, vehicle, test_percent):
                 "Length": int,
                 "Data": str,
                 "Label": float,
-                "Type": str,
             },
         )
         data["Label"] = np.where(data["Label"] == label, 1, 0)
@@ -406,7 +404,7 @@ def load_frames_in_vehicle(label, vehicle, test_percent):
 
     # Need to shuffle the data otherwise the test set will be all 0s
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=test_percent, shuffle=True
+        X, y, test_size=test_percent, shuffle=True, random_state=42
     )
     train_loader = torch.utils.data.DataLoader(
         FrameDataset(X_train, y_train), batch_size=64, shuffle=True
@@ -460,7 +458,7 @@ def load_frames_car_hacking(label, labels_dict, test_percent):
         np.save(f"data/frames/car-hacking-dataset/{labels_dict[label]}_labels.npy", y)
 
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=test_percent, shuffle=True
+        X, y, test_size=test_percent, shuffle=True, random_state=42
     )
     train_loader = torch.utils.data.DataLoader(
         FrameDataset(X_train, y_train), batch_size=64, shuffle=True
