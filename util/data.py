@@ -215,6 +215,7 @@ def load_binary_car_hacking(label, labels_dict, test_percent):
 
 def load_multiclass_road(test_percent):
     df = pd.read_csv("data/road/road_1.csv.gz")
+    df.drop(["timestamp"], axis=1, inplace=True)
     train_df, test_df = train_test_split(df, test_size=test_percent)
     smote = SMOTE(sampling_strategy={x: 100000 for x in range(1, 12)}, random_state=42)
     X, y = smote.fit_resample(train_df.drop(["label"], axis=1), train_df["label"])
