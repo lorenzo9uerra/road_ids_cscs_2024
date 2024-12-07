@@ -72,7 +72,7 @@ LSTM:
             3: "Spoofing",
         }
 
-    in-vehicle_toyota:
+    in-vehicle_hyundai:
         test_percent: 0.2
         sequence_length: 1
         num_epochs: 10
@@ -145,7 +145,7 @@ DCNN:
             2: "Fuzzing",
             3: "Spoofing",
         }
-    in-vehicle_toyota:
+    in-vehicle_hyundai:
         test_percent: 0.2
         num_epochs: 30
         learning_rate: 0.001
