@@ -1,0 +1,159 @@
+LSTM:
+    car-hacking:
+        test_percent: 0.2
+        sequence_length: 1
+        num_epochs: 5
+        learning_rate: 0.0001
+        hidden_size: 512
+        num_layers: 1
+        input_size: 10
+        threshold: 0.5
+        labels_dict: {
+            0: "Normal",
+            1: "DoS",
+            2: "Fuzzing",
+            3: "Gear Spoofing",
+            4: "RPM Spoofing",
+        }
+
+    road:
+        test_percent: 0.2
+        sequence_length: 1
+        num_epochs: 10
+        learning_rate: 0.0001
+        hidden_size: 512
+        num_layers: 1
+        input_size: 9
+        threshold: 0.5
+        labels_dict: {
+            0: "normal",
+            1: "correlated_signal_attack",
+            2: "correlated_signal_attack_masquerade",
+            3: "fuzzing_attack",
+            4: "max_engine_coolant_temp_attack",
+            5: "max_engine_coolant_temp_attack_masquerade",
+            6: "max_speedometer_attack",
+            7: "max_speedometer_attack_masquerade",
+            8: "reverse_light_off_attack",
+            9: "reverse_light_off_attack_masquerade",
+            10: "reverse_light_on_attack",
+            11: "reverse_light_on_attack_masquerade",
+        }
+
+    in-vehicle_chevrolet:
+        test_percent: 0.2
+        sequence_length: 1
+        num_epochs: 10
+        learning_rate: 0.0001
+        hidden_size: 512
+        num_layers: 1
+        input_size: 9
+        threshold: 0.5
+        labels_dict: {
+            0: "Normal",
+            1: "DoS",
+            2: "Fuzzing",
+            3: "Spoofing",
+        }
+
+    in-vehicle_kia:
+        test_percent: 0.2
+        sequence_length: 1
+        num_epochs: 10
+        learning_rate: 0.0001
+        hidden_size: 512
+        num_layers: 1
+        input_size: 9
+        threshold: 0.5
+        labels_dict: {
+            0: "Normal",
+            1: "DoS",
+            2: "Fuzzing",
+            3: "Spoofing",
+        }
+
+    in-vehicle_toyota:
+        test_percent: 0.2
+        sequence_length: 1
+        num_epochs: 10
+        learning_rate: 0.0001
+        hidden_size: 512
+        num_layers: 1
+        input_size: 9
+        threshold: 0.5
+        labels_dict: {
+            0: "Normal",
+            1: "DoS",
+            2: "Fuzzing",
+            3: "Spoofing",
+        }
+DCNN:
+    car-hacking:
+        test_percent: 0.2
+        num_epochs: 10
+        learning_rate: 0.001
+        threshold: 0.5
+        weight_decay: 0
+        labels_dict: {
+            0: "Normal",
+            1: "DoS",
+            2: "Fuzzing",
+            3: "Gear Spoofing",
+            4: "RPM Spoofing",
+        }
+    road:
+        test_percent: 0.2
+        num_epochs: 30
+        learning_rate: 0.001
+        threshold: 0.5
+        weight_decay: 0
+        labels_dict: {
+            0: "normal",
+            1: "correlated_signal_attack",
+            2: "correlated_signal_attack_masquerade",
+            3: "fuzzing_attack",
+            4: "max_engine_coolant_temp_attack",
+            5: "max_engine_coolant_temp_attack_masquerade",
+            6: "max_speedometer_attack",
+            7: "max_speedometer_attack_masquerade",
+            8: "reverse_light_off_attack",
+            9: "reverse_light_off_attack_masquerade",
+            10: "reverse_light_on_attack",
+            11: "reverse_light_on_attack_masquerade",
+        }
+    in-vehicle_chevrolet:
+        test_percent: 0.2
+        num_epochs: 30
+        learning_rate: 0.001
+        threshold: 0.5
+        weight_decay: 0
+        labels_dict: {
+            0: "Normal",
+            1: "DoS",
+            2: "Fuzzing",
+            3: "Spoofing",
+        }
+    in-vehicle_kia:
+        test_percent: 0.2
+        num_epochs: 30
+        learning_rate: 0.001
+        threshold: 0.5
+        weight_decay: 0
+        labels_dict: {
+            0: "Normal",
+            1: "DoS",
+            2: "Fuzzing",
+            3: "Spoofing",
+        }
+    in-vehicle_toyota:
+        test_percent: 0.2
+        num_epochs: 30
+        learning_rate: 0.001
+        threshold: 0.5
+        weight_decay: 0
+        labels_dict: {
+            0: "Normal",
+            1: "DoS",
+            2: "Fuzzing",
+            3: "Spoofing",
+        }
