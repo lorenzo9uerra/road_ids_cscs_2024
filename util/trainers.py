@@ -46,7 +46,7 @@ def train(
                     outputs = outputs.squeeze()
                     labels = labels.float()
                 elif isinstance(loss_fn, torch.nn.CrossEntropyLoss):
-                    outputs = outputs.view(-1, 12)
+                    outputs = outputs.squeeze(1)
 
                 loss = loss_fn(outputs, labels)
                 running_loss += loss.item()
